@@ -7,17 +7,16 @@
 #![allow(incomplete_features)]
 #![allow(clippy::enum_variant_names)]
 
-// Declare all your internal modules
 mod compiler;
 mod interpreter;
 mod lexer;
 mod parser;
 mod vm;
 
+use std::env;
 use std::fs;
-use std::path::Path;
-use color_eyre::eyre::*;
-
+use std::path::PathBuf;
+use color_eyre::eyre::{eyre, Result};
 
 use crate::{
     compiler::Compiler,
@@ -27,35 +26,34 @@ use crate::{
     vm::Vm,
 };
 
-
-
 const USE_COMPILER: bool = true;
 
 fn main() -> Result<()> {
-    // Enables better error traces
     color_eyre::install()?; 
 
-    // ✅ Path to your .relo file (make sure this exists)
-    let file_path = Path::new("testdata/porogram.relo");
+    // 🚀 Get the file name from command-line arguments
+    let args: Vec<String> = env::args().collect();
+    let file_stem = args.get(1).ok_or_else(|| eyre!("Please provide a .relo filename (without extension)"))?;
 
-    // ✅ Read source code from file
-    let program = fs::read_to_string(file_path)
-    .map_err(|e| eyre!("Failed to read {}: {}", file_path.display(), e))?;
+    // 📁 Construct full path: testdata/filename.relo
+    let mut file_path = PathBuf::from("testdata");
+    file_path.push(format!("{file_stem}.relo"));
 
-    // ✅ Tokenize the source
+    if !file_path.exists() {
+        return Err(eyre!("File {} does not exist", file_path.display()));
+    }
+
+    println!("🦀 Running file: {}\n", file_path.display());
+
+    let program = fs::read_to_string(&file_path)
+        .map_err(|e| eyre!("Failed to read {}: {}", file_path.display(), e))?;
+
     let tokens = Lexer::tokenize_str(&program)?;
+    let token_kinds = tokens.into_iter().map(|tok| tok.kind).collect::<Vec<TokenKind>>();
 
-    // ✅ Convert tokens to kinds for parsing
-    let token_kinds = tokens
-        .into_iter()
-        .map(|tok| tok.kind)
-        .collect::<Vec<TokenKind>>();
-
-    // ✅ Parse to AST
     let parser = Parser::new(&token_kinds);
     let ast = parser.parse().unwrap();
 
-    // ✅ Either compile and run, or interpret
     if USE_COMPILER {
         let compiler = Compiler::new();
         let bytecode_program = compiler.compile_program(&ast);
