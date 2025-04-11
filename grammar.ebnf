@@ -1,0 +1,136 @@
+program
+    : functions main
+    ;
+
+functions
+    : functions function
+    | NULL
+    ;
+
+main
+    : PGM_START statements PGM_END
+    ;
+
+function
+    : FUNC_DECLARE func_name statements END_FUNC
+    ;
+
+func_name
+    : WORD
+    ;
+
+statements
+    : statements statement
+    | NULL
+    ;
+
+statement
+    | BREAK_LOOP SEMI_COLON
+    | PRINT printexprs SEMI_COLON
+    | FUNC_CALL func_name SEMI_COLON
+    | FUNC_RETURN expression SEMI_COLON
+    | START_DECLARE variable DECLARE expression SEMI_COLON
+    | IF_COND logical_expression L_BRACE statements R_BRACE ELSE_COND L_BRACE statements R_BRACE END_BLOCK SEMI_COLON
+    | FOR_START forvar FOR_RANGE_START forvar FOR_RANGE_END L_BRACE statements R_BRACE END_BLOCK SEMI_COLON"
+    | START_DECLARE variable DECLARE_ALT expression SEMI_COLON
+    | WHILE_LOOP expression L_BRACE statements R_BRACE END_BLOCK SEMI_COLON
+    | IF_COND logical_expression L_BRACE statements R_BRACE END_BLOCK SEMI_COLON
+    | expression SEMI_COLON
+    | variable ASSIGN expression SEMI_COLON
+    | variable FUNC_CALL func_name SEMI_COLON
+    ;
+
+logical_expression
+    : expression logicalop expression
+    ;
+
+forvar
+    : NUMBER
+    | WORD
+    ;
+
+expression
+    : expression mathop expression
+    | expression logicalop expression
+    | SUB expression
+    | SUM expression
+    | NUMBER
+    | BOOL_TRUE
+    | BOOL_FALSE
+    | STRING
+    | WORD
+    ;
+
+printexprs
+    : printexprs expression
+    | NULL
+    ;
+
+variable
+    : WORD
+    ;
+
+logicalop
+    : GT
+    | GTE
+    | LT
+    | LTE
+    | EQ
+    | NEQ
+    ;
+
+mathop
+    : SUM
+    | SUB
+    | MUL
+    | DIV
+    | MOD
+    ;
+
+
+PGM_START : "START"
+
+PGM_END : "END"
+
+PRINT : "DISPLAY"
+
+SEMI_COLON : ";"
+L_BRACE : "{"
+R_BRACE : "}"
+
+NUMBER : "\d+(:?\.\d+)?"
+WORD : "[a-z_]+"
+STRING : \".*?\"
+BOOL_TRUE : "True"
+BOOL_FALSE : "False"
+
+SUM : +
+SUB : -
+MUL : *
+DIV : /
+MOD : %
+
+GT : ">(?!=)"
+LT : "<(?!=)"
+GTE : ">="
+LTE : "<="
+EQ : "=="
+NEQ : "!="
+
+START_DECLARE : "VARIABLE"
+DECLARE : "IS"
+ASSIGN : "IS"
+DECLARE_ALT : ":="
+
+IF_COND : "WHEN"
+ELSE_COND : "OTHERWISE"
+WHILE_LOOP : "REPEAT"
+FOR_START : "LOOP"
+FOR_RANGE_START : "Start"
+FOR_RANGE_END : "End"
+END_BLOCK : "DONE"
+BREAK_LOOP : "BREAK"
+FUNC_DECLARE : "CREATE FUNCTION"
+END_FUNC : "END_FN"
+FUNC_RETURN : "RETURN"
+FUNC_CALL :"CALL"
