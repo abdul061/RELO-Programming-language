@@ -1,8 +1,16 @@
 [package]
-name = "rpp2cpp"
+name = "relo"
 version = "0.1.0"
 edition = "2021"
+authors = ["Abdul Mubarak <abdulmubarak682@gmail.com>"]
+description = "A custom programming language with a readable syntax (RELO)."
 license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/yourusername/RELO-Programming-language"
+repository = "https://github.com/yourusername/RELO-Programming-language"
+keywords = ["language", "compiler", "interpreter", "relo"]
+categories = ["compilers", "parsing"]
+exclude = [".gitignore", ".github/*"]
 
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
