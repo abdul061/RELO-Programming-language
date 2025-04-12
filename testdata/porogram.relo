@@ -1,4 +1,70 @@
 
+ CREATE FUNCTION myfunc_one
+    DISPLAY "hi from myfunc_one func";
+END_FN
+
+CREATE FUNCTION returning_one
+    VARIABLE ix IS 100;
+    RETURN ix;
+END_FN
+
 START
-DISPLAY "HELLO";
+    VARIABLE ix IS 0;
+    WHEN ix >= 5 {
+        VARIABLE hii IS 0;
+        DISPLAY "ix is not less than 5";
+    } OTHERWISE {
+        VARIABLE hii IS 0;
+        DISPLAY "ix is less than 5";
+    } DONE;
+    DISPLAY "out of the if statement, ix is now =" ix;
+
+    DISPLAY;
+
+    VARIABLE temp IS 0;
+    REPEAT temp < 2 {
+        VARIABLE ix IS 0;
+        REPEAT ix < 5 {
+            DISPLAY ix;
+            ix ASSIGN ix + 1;
+        } DONE;
+        temp ASSIGN temp + 1;
+        DISPLAY "done with outer loop";
+    } DONE;
+
+    DISPLAY;
+
+    VARIABLE range IS 5;
+    LOOP 1 Start range End {
+        DISPLAY "Hi from for stmt";
+    } DONE;
+
+    DISPLAY;
+
+    VARIABLE chumma IS 0;
+    REPEAT True {
+        DISPLAY chumma;
+        chumma ASSIGN chumma + 1;
+        VARIABLE hi_test IS 0;
+        WHEN chumma >= 5 {
+            DISPLAY "breaking out of loop...";
+            QUIT;
+        } DONE;
+    } DONE;
+
+    DISPLAY;
+
+    VARIABLE start IS 0;
+    VARIABLE next_range IS 5;
+    LOOP start Start next_range End {
+        DISPLAY start;
+        WHEN start >= 2 {
+            DISPLAY "breaking out of loop...";
+            QUIT;
+        } DONE;
+    } DONE;
+
+    CALL myfunc_one;
+    y CALL returning_one;
+    DISPLAY y;
 END

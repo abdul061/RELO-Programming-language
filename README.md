@@ -1,3 +1,5 @@
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 **# RELO**
 
 A custom-built programming language interpreter and compiler written in Rust, designed to resemble simple English-like syntax such as:
@@ -36,7 +38,7 @@ A custom-built programming language interpreter and compiler written in Rust, de
 ├── main.rs        # Program entry point
 └── README.md
 
-**🧪 Example Program**
+## 🧪 Example Program**
 
 START
     VARIABLE i IS 1;

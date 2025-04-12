@@ -8,7 +8,7 @@ CREATE FUNCTION returning_one
     RETURN ix;
 END_FN
 
-MAIN
+START
     VARIABLE ix IS 0;
     WHEN ix >= 5 {
         VARIABLE hii IS 0;
@@ -26,16 +26,16 @@ MAIN
         VARIABLE ix IS 0;
         REPEAT ix < 5 {
             DISPLAY ix;
-            ix IS ix + 1;
+            ix ASSIGN ix + 1;
         } DONE;
-        temp IS temp + 1;
+        temp ASSIGN temp + 1;
         DISPLAY "done with outer loop";
     } DONE;
 
     DISPLAY;
 
     VARIABLE range IS 5;
-    LOOP 1 Startrange EndMADHRI {
+    LOOP 1 Start range End {
         DISPLAY "Hi from for stmt";
     } DONE;
 
@@ -44,7 +44,7 @@ MAIN
     VARIABLE chumma IS 0;
     REPEAT True {
         DISPLAY chumma;
-        chumma IS chumma + 1;
+        chumma ASSIGN chumma + 1;
         VARIABLE hi_test IS 0;
         WHEN chumma >= 5 {
             DISPLAY "breaking out of loop...";
@@ -56,7 +56,7 @@ MAIN
 
     VARIABLE start IS 0;
     VARIABLE next_range IS 5;
-    LOOP start Startnext_range EndMADHRI {
+    LOOP start Start next_range End {
         DISPLAY start;
         WHEN start >= 2 {
             DISPLAY "breaking out of loop...";
