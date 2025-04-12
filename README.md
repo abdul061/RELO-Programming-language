@@ -38,7 +38,7 @@ A custom-built programming language interpreter and compiler written in Rust, de
 ├── main.rs        # Program entry point
 └── README.md
 
-## 🧪 Example Program**
+**🧪 Example Program**
 
 START
     VARIABLE i IS 1;
@@ -70,7 +70,7 @@ Execution time is printed automatically after the program finishes.
 Abdul Mubarak H
 📧 abdulmubarak682@gmail.com
 
-**📜 License**
+****📜 License****
 MIT License — Free to use, modify, and distribute.
 
 
