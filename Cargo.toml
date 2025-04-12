@@ -1,6 +1,6 @@
 [package]
 name = "relo"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 authors = ["Abdul Mubarak <abdulmubarak682@gmail.com>"]
 description = "A custom programming language with a readable syntax (RELO)."
