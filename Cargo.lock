@@ -222,7 +222,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "rpp2cpp"
+name = "relo"
 version = "0.1.0"
 dependencies = [
  "color-eyre",
