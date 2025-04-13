@@ -31,13 +31,12 @@ const USE_COMPILER: bool = true;
 fn main() -> Result<()> {
     color_eyre::install()?; 
 
-    // 🚀 Get the file name from command-line arguments
+    // Get the base filename (without extension)
     let args: Vec<String> = env::args().collect();
-    let file_stem = args.get(1).ok_or_else(|| eyre!("Please provide a .relo filename (without extension)"))?;
+    let file_stem = args.get(1).ok_or_else(|| eyre!("Please provide a .relo file name (without extension)"))?;
 
-    // 📁 Construct full path: testdata/filename.relo
-    let mut file_path = PathBuf::from("testdata");
-    file_path.push(format!("{file_stem}.relo"));
+    // Add the `.relo` extension automatically
+    let file_path = PathBuf::from(format!("{file_stem}.relo"));
 
     if !file_path.exists() {
         return Err(eyre!("File {} does not exist", file_path.display()));
